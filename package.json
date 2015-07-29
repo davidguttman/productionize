@@ -20,5 +20,11 @@
   "bugs": {
     "url": "https://github.com/davidguttman/productionize/issues"
   },
-  "homepage": "https://github.com/davidguttman/productionize#readme"
+  "homepage": "https://github.com/davidguttman/productionize#readme",
+  "dependencies": {
+    "bunyan": "^1.4.0"
+  },
+  "devDependencies": {
+    "standard": "^4.5.4"
+  }
 }
