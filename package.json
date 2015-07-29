@@ -1,0 +1,24 @@
+{
+  "name": "productionize",
+  "version": "1.0.0",
+  "description": "Simple additions for a production app",
+  "main": "index.js",
+  "scripts": {
+    "test": "standard"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/davidguttman/productionize.git"
+  },
+  "keywords": [
+    "production",
+    "logging",
+    "error"
+  ],
+  "author": "David Guttman <david@guttman.io> (http://davidguttman.com/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/davidguttman/productionize/issues"
+  },
+  "homepage": "https://github.com/davidguttman/productionize#readme"
+}
