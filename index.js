@@ -15,13 +15,15 @@ module.exports = function (name) {
 
   var log = bunyan.createLogger({name: name})
 
-  console.log = function () { log.info.apply(log, arguments) }
+  console.log = log.info.bind(log)
 
-  console.error = function () { log.error.apply(log, arguments) }
+  var levels = ['fatal', 'error', 'warn', 'info', 'debug', 'trace']
+  levels.forEach(function (level) { console[level] = log[level].bind(log) })
 
   process.on('uncaughtException', function (err) {
-    console.error(err)
+    log.fatal(err)
     process.exit(1)
   })
 
+  return log
 }
