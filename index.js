@@ -1,6 +1,9 @@
 process.env.NODE_ENV = process.env.NODE_ENV || 'development'
 
 var bunyan = require('bunyan')
+var round = require('lodash.round')
+var forEach = require('lodash.foreach')
+var isObject = require('lodash.isobject')
 
 var loaded
 
@@ -15,10 +18,10 @@ module.exports = function (name) {
 
   var log = bunyan.createLogger({name: name})
 
-  console.log = log.info.bind(log)
+  console.log = roundLog(log, 'info')
 
   var levels = ['fatal', 'error', 'warn', 'info', 'debug', 'trace']
-  levels.forEach(function (level) { console[level] = log[level].bind(log) })
+  levels.forEach(function (level) { console[level] = roundLog(log, level) })
 
   process.on('uncaughtException', function (err) {
     log.fatal(err)
@@ -26,4 +29,19 @@ module.exports = function (name) {
   })
 
   return log
+}
+
+function roundLog (logger, level) {
+  var fn = function () {
+    forEach(arguments, function (arg) {
+      if (!isObject(arg)) return
+
+      forEach(arg, function (val, key) {
+        if (typeof val === 'number') arg[key] = round(val, 6)
+      })
+    })
+
+    return logger[level].apply(logger, arguments)
+  }
+  return fn
 }
