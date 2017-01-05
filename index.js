@@ -16,7 +16,10 @@ module.exports = function (name) {
 
   loaded = true
 
-  var log = bunyan.createLogger({name: name})
+  var log = bunyan.createLogger({
+    name: name,
+    serializers: bunyan.stdSerializers
+  })
 
   console.log = roundLog(log, 'info')
 
