@@ -1,6 +1,6 @@
 process.env.NODE_ENV = process.env.NODE_ENV || 'development'
 
-var bunyan = require('bunyan')
+var pino = require('pino')
 var round = require('lodash.round')
 var forEach = require('lodash.foreach')
 var isObject = require('lodash.isobject')
@@ -16,9 +16,10 @@ module.exports = function (name) {
 
   loaded = true
 
-  var log = bunyan.createLogger({
+  var log = pino({
     name: name,
-    serializers: bunyan.stdSerializers
+    slowtime: true,
+    serializers: pino.stdSerializers
   })
 
   console.log = roundLog(log, 'info')

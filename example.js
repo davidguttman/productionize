@@ -1,7 +1,7 @@
 process.env.NODE_ENV = 'production'
 var log = require('./')('example')
 
-log.level('trace') // default is 'info'
+log.level = 'trace' // default is 'info'
 
 console.trace('vv')
 console.debug('v')
