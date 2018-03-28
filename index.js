@@ -7,12 +7,12 @@ var isObject = require('lodash.isobject')
 
 var loaded
 
-module.exports = function (name) {
+module.exports = function (name, minLevel) {
   if (!name) throw new Error('Please provide an app name')
 
   if (loaded) return
-  if (process.env.NODE_ENV === 'development') return
-  if (process.env.NODE_ENV === 'test') return
+  if (process.env.NODE_ENV === 'development') return {}
+  if (process.env.NODE_ENV === 'test') return {}
 
   loaded = true
 
@@ -21,6 +21,8 @@ module.exports = function (name) {
     slowtime: true,
     serializers: pino.stdSerializers
   })
+
+  log.level = minLevel || 'trace'
 
   console.log = roundLog(log, 'info')
 
