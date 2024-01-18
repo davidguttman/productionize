@@ -1,11 +1,11 @@
 process.env.NODE_ENV = process.env.NODE_ENV || 'development'
 
-var pino = require('pino')
-var round = require('lodash.round')
-var forEach = require('lodash.foreach')
-var isObject = require('lodash.isobject')
+const pino = require('pino')
+const round = require('lodash.round')
+const forEach = require('lodash.foreach')
+const isObject = require('lodash.isobject')
 
-var loaded
+let loaded
 
 module.exports = function (name, minLevel) {
   if (!name) throw new Error('Please provide an app name')
@@ -16,8 +16,8 @@ module.exports = function (name, minLevel) {
 
   loaded = true
 
-  var log = pino({
-    name: name,
+  const log = pino({
+    name,
     slowtime: true,
     serializers: pino.stdSerializers
   })
@@ -26,8 +26,10 @@ module.exports = function (name, minLevel) {
 
   console.log = roundLog(log, 'info')
 
-  var levels = ['fatal', 'error', 'warn', 'info', 'debug', 'trace']
-  levels.forEach(function (level) { console[level] = roundLog(log, level) })
+  const levels = ['fatal', 'error', 'warn', 'info', 'debug', 'trace']
+  levels.forEach(function (level) {
+    console[level] = roundLog(log, level)
+  })
 
   process.on('uncaughtException', function (err) {
     log.fatal(err)
@@ -38,7 +40,7 @@ module.exports = function (name, minLevel) {
 }
 
 function roundLog (logger, level) {
-  var fn = function () {
+  const fn = function () {
     forEach(arguments, function (arg) {
       if (!isObject(arg)) return
 

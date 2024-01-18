@@ -28,6 +28,6 @@
     "pino": "^3.4.0"
   },
   "devDependencies": {
-    "standard": "^4.5.4"
+    "standard": "^17.1.0"
   }
 }
