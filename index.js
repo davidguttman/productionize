@@ -5,7 +5,7 @@ const { round, forEach, isObject } = require('lodash')
 
 let loaded
 
-module.exports = function (name, minLevel) {
+module.exports = function (name, config = {}) {
   if (!name) throw new Error('Please provide an app name')
 
   if (loaded) return
@@ -17,10 +17,11 @@ module.exports = function (name, minLevel) {
   const log = pino({
     name,
     slowtime: true,
-    serializers: pino.stdSerializers
+    serializers: pino.stdSerializers,
+    transport: config.transport
   })
 
-  log.level = minLevel || 'trace'
+  log.level = config.minLevel || 'trace'
 
   const oldLog = console.log
   console.log = roundLog(log, 'info')
