@@ -1,9 +1,7 @@
 process.env.NODE_ENV = process.env.NODE_ENV || 'development'
 
 const pino = require('pino')
-const round = require('lodash.round')
-const forEach = require('lodash.foreach')
-const isObject = require('lodash.isobject')
+const { round, forEach, isObject } = require('lodash')
 
 let loaded
 
