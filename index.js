@@ -22,6 +22,7 @@ module.exports = function (name, minLevel) {
 
   log.level = minLevel || 'trace'
 
+  const oldLog = console.log
   console.log = roundLog(log, 'info')
 
   const levels = ['fatal', 'error', 'warn', 'info', 'debug', 'trace']
@@ -31,6 +32,7 @@ module.exports = function (name, minLevel) {
 
   process.on('uncaughtException', function (err) {
     log.fatal(err)
+    oldLog(err)
     process.exit(1)
   })
 
