@@ -40,7 +40,7 @@ module.exports = function (name, minLevel) {
 }
 
 function roundLog (logger, level) {
-  const fn = function () {
+  const fn = function (a, b) {
     forEach(arguments, function (arg) {
       if (!isObject(arg)) return
 
@@ -49,7 +49,8 @@ function roundLog (logger, level) {
       })
     })
 
-    return logger[level].apply(logger, arguments)
+    const args = b && isObject(b) ? [b, a] : [a, b]
+    return logger[level].apply(logger, args)
   }
   return fn
 }
