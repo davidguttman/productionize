@@ -1,6 +1,6 @@
 {
   "name": "productionize",
-  "version": "4.1.0",
+  "version": "5.0.0",
   "description": "Simple additions for a production app",
   "main": "index.js",
   "scripts": {
