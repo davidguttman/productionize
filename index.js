@@ -17,7 +17,7 @@ module.exports = function (name, config = {}) {
   const log = pino({
     name,
     slowtime: true,
-    serializers: pino.stdSerializers,
+    serializers: config.serializers || pino.stdSerializers,
     transport: config.transport
   })
 
